@@ -1,0 +1,23 @@
+#include <cstdio>
+#include <cstdlib>
+#include <unistd.h>
+
+const auto BUFFSIZE = 4096;
+
+int main() {
+  int n;
+  char buf[BUFFSIZE];
+
+  while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0) {
+    if (write(STDOUT_FILENO, buf, n) != n) {
+      printf("write error\n");
+      exit(1);
+    }
+  }
+
+  if (n < 0) {
+    printf("read error\n");
+    exit(1);
+  }
+  exit(0);
+}
